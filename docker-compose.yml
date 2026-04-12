@@ -11,8 +11,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    container_name: api
-    image: api:${VERSION}
+    container_name: garden-all-api
+    image: garden-all-api:${VERSION}
     networks:
       - network
     ports:
@@ -31,7 +31,7 @@ services:
 
   db:
     build: db
-    container_name: db
+    container_name: garden-all-db
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
