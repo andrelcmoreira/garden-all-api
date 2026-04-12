@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "garden-all-api"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "django>=5.0",
+    "djangorestframework>=3.15",
+    "psycopg2-binary>=2.9.9"
+]
+
+[project.optional-dependencies]
+dev = [
+    "drf-spectacular>=0.27",
+    "pytest-django>=4.8",
+    "coverage",
+    "pylint"
+]
+
+[tool.hatch.build]
+include = [
+    "garden_all_api/*",
+    "app/*",
+    "migrate.py"
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "garden_all_api.settings"
+python_files = ["tests.py", "test_*.py", "*_test.py"]
+minversion = "6.0"
+addopts = "-ra -q"
+pythonpath = "."
+testpaths = [
+    "app"
+]
