@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import generics
 
 from .models import Device, DeviceConfiguration
@@ -15,6 +14,12 @@ class DeviceConfigurationListCreateView(generics.ListCreateAPIView):
     serializer_class = DeviceConfigurationSerializer
 
 
+class DeviceConfigurationDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = DeviceConfiguration.objects.all()
+    serializer_class = DeviceConfigurationSerializer
+
+
 class DeviceDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
+    lookup_field = 'fingerprint'

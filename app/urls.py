@@ -6,6 +6,7 @@ from django.urls import path
 from .views import (
     DeviceListCreateView,
     DeviceDetailView,
+    DeviceConfigurationDetailView,
     DeviceConfigurationListCreateView
 )
 
@@ -13,13 +14,18 @@ from .views import (
 urlpatterns = [
     path('devices/', DeviceListCreateView.as_view(), name='device-list-create'),
     path(
-        'devices/<int:pk>/',
+        'devices/<str:fingerprint>/',
         DeviceDetailView.as_view(),
         name='device-detail'
     ),
     path(
-        'devices/<int:pk>/config/',
+        'configs/',
         DeviceConfigurationListCreateView.as_view(),
-        name='device-config-list-create'
+        name='config-list-create'
+    ),
+    path(
+        'configs/<int:pk>/',
+        DeviceConfigurationDetailView.as_view(),
+        name='config-detail'
     )
 ]
