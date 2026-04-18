@@ -8,3 +8,12 @@ class InvalidField(APIException):
         super().__init__(
             detail=f"The provided value for '{field_name}' is invalid"
         )
+
+
+class ConfigurationNotFound(APIException):
+    status_code = 404
+
+    def __init__(self, cfg_id: int):
+        super().__init__(
+            detail=f"Config '{cfg_id}' not found on database"
+        )

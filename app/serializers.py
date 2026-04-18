@@ -15,25 +15,25 @@ class DeviceConfigurationSerializer(serializers.ModelSerializer):
         model = DeviceConfiguration
         fields = '__all__'
 
-    def validate_name(self, value) -> str:
+    def validate_name(self, value: str) -> str:
         if not value.strip():
             raise InvalidField('name')
 
         return value
 
-    def validate_check_cfg_interval(self, value) -> int:
+    def validate_check_cfg_interval(self, value: int) -> int:
         if value <= 0:
             raise InvalidField('check_cfg_interval')
 
         return value
 
-    def validate_activate_pump_interval(self, value) -> int:
+    def validate_activate_pump_interval(self, value: int) -> int:
         if value <= 0:
             raise InvalidField('activate_pump_interval')
 
         return value
 
-    def validate_read_sensors_interval(self, value) -> int:
+    def validate_read_sensors_interval(self, value: int) -> int:
         if value <= 0:
             raise InvalidField('read_sensors_interval')
 
