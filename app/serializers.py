@@ -2,7 +2,6 @@
 #from django.core.validators import RegexValidator
 from rest_framework import serializers
 
-#from .exceptions import InvalidField
 from .models import Device, DeviceConfiguration
 
 

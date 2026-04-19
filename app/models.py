@@ -29,7 +29,8 @@ class Device(models.Model):
     fingerprint = models.CharField(max_length=64, unique=True, editable=False)
     cfg = models.ForeignKey(
         DeviceConfiguration,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
         related_name='devices'
     )
 
