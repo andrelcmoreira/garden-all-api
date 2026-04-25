@@ -42,3 +42,17 @@ class Device(models.Model):
 
         self.fingerprint = hashlib.sha256(dev_id).hexdigest()
         super().save(*args, **kwargs)
+
+
+class DeviceEvent(models.Model):
+    device = models.ForeignKey(
+        Device,
+        on_delete=models.CASCADE,
+        related_name='events'
+    )
+    timestamp = models.DateTimeField(auto_now_add=True)
+    event_type = models.CharField(max_length=50)
+    event_data = models.JSONField()
+
+    class Meta:
+        db_table = 'device_event'

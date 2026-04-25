@@ -1,7 +1,11 @@
 from rest_framework import generics
 
 from .models import Device, DeviceConfiguration
-from .serializers import DeviceSerializer, DeviceConfigurationSerializer
+from .serializers import (
+    DeviceEventSerializer,
+    DeviceSerializer,
+    DeviceConfigurationSerializer
+)
 
 
 class DeviceListCreateView(generics.ListCreateAPIView):
@@ -29,3 +33,20 @@ class DeviceConfigDetailView(generics.RetrieveUpdateDestroyAPIView):
             raise generics.Http404("Configuration not found for this device")
 
         return device.cfg
+
+
+class DeviceEventListCreateView(generics.ListCreateAPIView):
+    serializer_class = DeviceEventSerializer
+
+#    def get_queryset(self):
+#        fingerprint = self.kwargs.get("fingerprint")
+#
+#        device = generics.get_object_or_404(
+#            Device.objects.select_related("cfg"),
+#            fingerprint=fingerprint
+#        )
+#
+#        if not device.cfg:
+#            raise generics.Http404("Configuration not found for this device")
+#
+#        return device.cfg.events.all()

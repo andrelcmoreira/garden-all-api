@@ -2,7 +2,11 @@
 #from django.core.validators import RegexValidator
 from rest_framework import serializers
 
-from .models import Device, DeviceConfiguration
+from .models import (
+    Device,
+    DeviceConfiguration,
+    DeviceEvent
+)
 
 
 class DeviceConfigurationSerializer(serializers.ModelSerializer):
@@ -79,3 +83,25 @@ class DeviceSerializer(serializers.ModelSerializer):
             'mac_address',
             'cfg'
         ]
+
+
+class DeviceEventSerializer(serializers.ModelSerializer):
+    device = serializers.PrimaryKeyRelatedField(
+        queryset=Device.objects.all(),
+        error_messages={
+            'does_not_exist': "The provided 'device' does not exist",
+            'required': "The 'device' field is required"
+        }
+    )
+    event_type = serializers.CharField(
+        allow_blank=False,
+        error_messages={
+            'blank': "The 'event_type' field cannot be blank",
+            'required': "The 'event_type' field is required"
+        }
+    )
+    event_data = serializers.JSONField()
+
+    class Meta:
+        model = DeviceEvent
+        fields = '__all__'

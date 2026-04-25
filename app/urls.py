@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (
     DeviceListCreateView,
     DeviceConfigDetailView,
-    DeviceConfigListCreateView
+    DeviceConfigListCreateView,
+    DeviceEventListCreateView
 )
 
 
@@ -22,5 +23,10 @@ urlpatterns = [
         'configs/',
         DeviceConfigListCreateView.as_view(),
         name='config-list-create'
+    ),
+    path(
+        'devices/<str:fingerprint>/events/',
+        DeviceEventListCreateView.as_view(),
+        name='device-event-list-create'
     )
 ]
