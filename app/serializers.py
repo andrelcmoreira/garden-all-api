@@ -9,7 +9,7 @@ from .models import (
 
 
 class DeviceConfigurationSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
+    id = serializers.UUIDField(read_only=True)
     name = serializers.CharField(
         allow_blank=False,
         required=True,
@@ -50,6 +50,7 @@ class DeviceConfigurationSerializer(serializers.ModelSerializer):
 
 
 class DeviceSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
     name = serializers.CharField(
         allow_blank=False,
         required=True,

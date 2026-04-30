@@ -1,9 +1,11 @@
 import hashlib
+import uuid
 
 from django.db import models
 
 
 class DeviceConfiguration(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.TextField()
     check_cfg_interval = models.IntegerField()
     activate_pump_interval = models.IntegerField()
@@ -23,6 +25,7 @@ class DeviceConfiguration(models.Model):
 
 
 class Device(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.TextField()
     model = models.TextField()
     mac_address = models.CharField(max_length=17, unique=True)
