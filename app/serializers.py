@@ -1,6 +1,7 @@
 from django.core.validators import RegexValidator
 from rest_framework import serializers
 
+from .error import ERROR_TYPES
 from .models import (
     Device,
     DeviceConfiguration,
@@ -14,16 +15,16 @@ class DeviceConfigurationSerializer(serializers.ModelSerializer):
         allow_blank=False,
         required=True,
         error_messages={
-            'blank': "The 'name' field cannot be blank",
-            'required': "The 'name' field is required"
+            'blank': ERROR_TYPES['blank'].format('name'),
+            'required': ERROR_TYPES['required'].format('name')
         }
     )
     check_cfg_interval = serializers.IntegerField(
         min_value=1,
         required=True,
         error_messages={
-            'min_value': "The provided value for 'check_cfg_interval' must be greater than 0",
-            'required': "The 'check_cfg_interval' field is required"
+            'min_value': ERROR_TYPES['min_value'].format('check_cfg_interval'),
+            'required': ERROR_TYPES['required'].format('check_cfg_interval')
         }
 
     )
@@ -31,16 +32,16 @@ class DeviceConfigurationSerializer(serializers.ModelSerializer):
         min_value=1,
         required=True,
         error_messages={
-            'min_value': "The provided value for 'activate_pump_interval' must be greater than 0",
-            'required': "The 'activate_pump_interval' field is required"
+            'min_value': ERROR_TYPES['min_value'].format('activate_pump_interval'),
+            'required': ERROR_TYPES['required'].format('activate_pump_interval')
         }
     )
     read_sensors_interval = serializers.IntegerField(
         min_value=1,
         required=True,
         error_messages={
-            'min_value': "The provided value for 'read_sensors_interval' must be greater than 0",
-            'required': "The 'read_sensors_interval' field is required"
+            'min_value': ERROR_TYPES['min_value'].format('read_sensors_interval'),
+            'required': ERROR_TYPES['required'].format('read_sensors_interval')
         }
     )
 
@@ -55,16 +56,16 @@ class DeviceSerializer(serializers.ModelSerializer):
         allow_blank=False,
         required=True,
         error_messages={
-            'blank': "The 'name' field cannot be blank",
-            'required': "The 'name' field is required"
+            'blank': ERROR_TYPES['blank'].format('name'),
+            'required': ERROR_TYPES['required'].format('name')
         }
     )
     model = serializers.CharField(
         allow_blank=False,
         required=True,
         error_messages={
-            'blank': "The 'model' field cannot be blank",
-            'required': "The 'model' field is required"
+            'blank': ERROR_TYPES['blank'].format('model'),
+            'required': ERROR_TYPES['required'].format('model')
         }
     )
     mac_address = serializers.CharField(
@@ -73,21 +74,21 @@ class DeviceSerializer(serializers.ModelSerializer):
         validators=[
             RegexValidator(
                 regex=r'^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$',
-                message="The provided value for 'mac_address' is not a valid MAC address"
+                message=ERROR_TYPES['invalid'].format('mac_address')
             )
         ],
         max_length=17,
         error_messages={
-            'blank': "The 'mac_address' field cannot be blank",
-            'required': "The 'mac_address' field is required"
+            'blank': ERROR_TYPES['blank'].format('mac_address'),
+            'required': ERROR_TYPES['required'].format('mac_address'),
         }
     )
     cfg = serializers.PrimaryKeyRelatedField(
         queryset=DeviceConfiguration.objects.all(),
         required=True,
         error_messages={
-            'does_not_exist': "The provided 'cfg' does not exist",
-            'required': "The 'cfg' field is required"
+            'does_not_exist': ERROR_TYPES['does_not_exist'].format('cfg'),
+            'required': ERROR_TYPES['required'].format('cfg')
         }
     )
 
@@ -107,16 +108,16 @@ class DeviceEventSerializer(serializers.ModelSerializer):
         queryset=Device.objects.all(),
         required=True,
         error_messages={
-            'does_not_exist': "The provided 'device' does not exist",
-            'required': "The 'device' field is required"
+            'does_not_exist': ERROR_TYPES['does_not_exist'].format('device'),
+            'required': ERROR_TYPES['required'].format('device')
         }
     )
     event_type = serializers.CharField(
         allow_blank=False,
         required=True,
         error_messages={
-            'blank': "The 'event_type' field cannot be blank",
-            'required': "The 'event_type' field is required"
+            'blank': ERROR_TYPES['blank'].format('event_type'),
+            'required': ERROR_TYPES['required'].format('event_type')
         }
     )
     event_data = serializers.JSONField()
