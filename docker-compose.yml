@@ -16,7 +16,7 @@ services:
     networks:
       - network
     ports:
-      - '80:8000'
+      - '8000:8000'
     depends_on:
       - db
     environment:
@@ -28,6 +28,7 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_ENGINE=${DB_ENGINE}
+      - ALLOWED_HOSTS=${CORS_ALLOWED_HOSTS}
 
   db:
     build: db
